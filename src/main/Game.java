@@ -45,7 +45,7 @@ public class Game implements Runnable{
 
         pole2.insertLast(pole1.removeLast());
         pole3.insertLast(pole1.removeLast());
-        pole3.insertLast(pole2.removeLast());
+
 
 
     }
