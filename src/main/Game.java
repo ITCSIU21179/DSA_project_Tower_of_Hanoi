@@ -16,9 +16,7 @@ public class Game implements Runnable{
     private Pole pole2;
     private Pole pole3;
     private int nRings;
-    private Ring ring1;
-    private Ring ring2;
-    private Ring ring3;
+
     private boolean Click1 = false;
     private Pole selectedPole = null;
     private Random rand = new Random();
