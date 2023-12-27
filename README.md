@@ -1,4 +1,4 @@
-# Tower Of Hanoi
+# Tower of Hanoi
 
 # Table of contents
 1. [Introduction](#Introduction)
@@ -26,7 +26,7 @@ This is our Tower of Hanoi game project for the Data Structure and Algorithms co
 
 1. Clone this repository
     ```sh
-    git clone 
+    git clone git@github.com:ITCSIU21179/DSA_project_Tower_of_Hanoi.git
     ```
 2. Open the project with IntelliJ IDEA or VSCode and check the file status
     ```sh
