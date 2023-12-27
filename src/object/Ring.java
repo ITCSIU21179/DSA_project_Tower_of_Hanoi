@@ -10,7 +10,7 @@ public class Ring {
     public int scale =0;
     public int r,g,b;
     private final Color color;
-    private static int count;
+//    private static int count;
     public int order = 0;
 
 
@@ -22,8 +22,8 @@ public class Ring {
         this.b = b;
         color = new Color(r,g,b);
 
-        count++;
-        order = count;
+//        count++;
+//        order = count;
     }
     public void render(Graphics g){
         g.setColor(color);
@@ -38,7 +38,9 @@ public class Ring {
     public void setScale(int scale){
         this.scale = scale;
     }
-//    public void displayProperties(){ System.out.printf("RingX: (r,g,b): (%d,%d,%d), x = %d, y= %d\n", r,g,b,x,y);}
 
+    public void setOrder(int order){
+        this.order = order;
+    }
 
 }

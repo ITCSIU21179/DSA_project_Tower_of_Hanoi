@@ -3,6 +3,7 @@ import object.Pole;
 import object.Ring;
 
 import java.awt.*;
+import java.util.Random;
 
 public class Game implements Runnable{
     private static Game toh;
@@ -14,15 +15,18 @@ public class Game implements Runnable{
     private Pole pole1;
     private Pole pole2;
     private Pole pole3;
+    private int nRings;
     private Ring ring1;
     private Ring ring2;
     private Ring ring3;
     private boolean Click1 = false;
     private Pole selectedPole = null;
+    private Random rand = new Random();
 
 
 
     private Game(){
+        nRings = 3;
         initClasses();
         gamePanel = new GamePanel(this);
         gameWindow = new GameWindow(gamePanel);
@@ -35,14 +39,21 @@ public class Game implements Runnable{
         pole1 = new Pole(186,180);
         pole2 = new Pole(486,180);
         pole3 = new Pole(786,180);
-        ring1 = new Ring(255,100,150);
-        ring2 = new Ring(255,255,150);
-        ring3 = new Ring(255,100,25);
-        ring2.setScale(50);
-        ring3.setScale(100);
-        pole1.insertLast(ring3);
-        pole1.insertLast(ring2);
-        pole1.insertLast(ring1);
+
+        for(int i = 0; i< nRings; i++){
+            Ring ring = new Ring(rand.nextInt(0,256), rand.nextInt(0,256),rand.nextInt(0,256));
+            ring.setOrder(nRings-i);
+            ring.setScale((nRings-i-1)*50);
+            pole1.insertLast(ring);
+        }
+//        ring1 = new Ring(255,100,150);
+//        ring2 = new Ring(255,255,150);
+//        ring3 = new Ring(255,100,25);
+//        ring2.setScale(50);
+//        ring3.setScale(100);
+//        pole1.insertLast(ring3);
+//        pole1.insertLast(ring2);
+//        pole1.insertLast(ring1);
 
 //        pole2.insertLast(pole1.removeLast());
 //        pole3.insertLast(pole1.removeLast());
@@ -69,9 +80,11 @@ public class Game implements Runnable{
         pole1.render(g);
         pole2.render(g);
         pole3.render(g);
-        ring1.render(g);
-        ring2.render(g);
-        ring3.render(g);
+
+
+//        ring1.render(g);
+//        ring2.render(g);
+//        ring3.render(g);
     }
     public void moveRing(Point point){
         if(point != null) {

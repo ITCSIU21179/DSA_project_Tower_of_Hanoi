@@ -54,6 +54,11 @@ public class Pole {
     public void render(Graphics g){
         g.setColor(color);
         g.fillRect(x,y,width,height);
+        Ring current = first;
+        while(current != null){
+            current.render(g);
+            current = current.next;
+        }
     }
     public void setChoseColor(){
         this.color = new Color(100,20,25);
@@ -67,4 +72,5 @@ public class Pole {
     public boolean isEmpty(){
         return nRings==0;
     }
+
 }
