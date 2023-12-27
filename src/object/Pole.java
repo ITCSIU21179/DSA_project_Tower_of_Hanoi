@@ -61,4 +61,10 @@ public class Pole {
     public void setDefaultColor(){
         this.color = new Color(default_color);
     }
+    public Ring getLast(){
+        return last;
+    }
+    public boolean isEmpty(){
+        return nRings==0;
+    }
 }

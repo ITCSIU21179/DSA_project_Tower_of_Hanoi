@@ -17,7 +17,8 @@ public class Game implements Runnable{
     private Ring ring1;
     private Ring ring2;
     private Ring ring3;
-    private boolean Clicked = false;
+    private boolean Click1 = false;
+    private Pole selectedPole = null;
 
 
 
@@ -43,8 +44,10 @@ public class Game implements Runnable{
         pole1.insertLast(ring2);
         pole1.insertLast(ring1);
 
-        pole2.insertLast(pole1.removeLast());
-        pole3.insertLast(pole1.removeLast());
+//        pole2.insertLast(pole1.removeLast());
+//        pole3.insertLast(pole1.removeLast());
+//        pole3.insertLast(pole2.removeLast());
+//        pole2.insertLast(pole1.removeLast());
 
 
 
@@ -74,15 +77,15 @@ public class Game implements Runnable{
         if(point != null) {
             if ((point.x >= 153) && (point.x <= 248) && (point.y >= 600) && (point.y <= 649)) {
                 selectPole(1);
-//                setPoint(null);
+
             }
             if ((point.x >= 153 + 300) && (point.x <= 248 + 300) && (point.y >= 600) && (point.y <= 649)) {
                 selectPole(2);
-//                setPoint(null);
+
             }
             if ((point.x >= 153 + 600) && (point.x <= 248 + 600) && (point.y >= 600) && (point.y <= 649)) {
                 selectPole(3);
-//                setPoint(null);
+
             }
         }
 
@@ -91,37 +94,85 @@ public class Game implements Runnable{
     public void selectPole(int i){
         switch(i){
             case 1:
-                if(!Clicked) {
-                    setClicked_true();
+                if(!Click1) {
                     pole1.setChoseColor();
+                    setClick1_true();
+                    move(pole1);
+                    System.out.println("select Pole 1");
                 }
-                else setClicked_false();
+
+                else {
+//                        setClick2_true();
+                    move(pole1);
+                    setClick_false();
+                    System.out.println("select Pole 1");
+                }
+
+
                 break;
             case 2:
-                if(!Clicked) {
-                    setClicked_true();
+                if(!Click1) {
                     pole2.setChoseColor();
+                    setClick1_true();
+                    move(pole2);
+                    System.out.println("select Pole 2");
                 }
-                else setClicked_false();
+
+                else {
+//                        setClick2_true();
+                    move(pole2);
+                    setClick_false();
+                    System.out.println("select Pole 2");
+                }
+
                 break;
             case 3:
-                if(!Clicked) {
-                    setClicked_true();
+                if(!Click1) {
                     pole3.setChoseColor();
+                    setClick1_true();
+                    move(pole3);
+                    System.out.println("select Pole 3");
                 }
-                else setClicked_false();
+
+                else {
+//                        setClick2_true();
+                    move(pole3);
+                    setClick_false();
+                    System.out.println("select Pole 3");
+                }
+
                 break;
         }
     }
-    private void setClicked_false(){
-        Clicked = false;
+    private void setClick_false(){
+        Click1 = false;
+//        Click2 = false;
         pole1.setDefaultColor();
         pole2.setDefaultColor();
         pole3.setDefaultColor();
     }
-    private void setClicked_true(){
-        this.Clicked = true;
+    private void setClick1_true(){
+        this.Click1 = true;
     }
+//    private void setClick2_true(){
+//        this.Click2 = true;
+//    }
+
+    private void move(Pole pole){
+        if (selectedPole == null){
+            selectedPole = pole;
+        }
+        else {
+                if (pole.isEmpty() || (!selectedPole.isEmpty() && pole.getLast().order > selectedPole.getLast().order )) {
+                    pole.insertLast(selectedPole.removeLast());
+                    System.out.println("moved");
+                    selectedPole = null;
+                }else selectedPole = null;
+
+        }
+
+    }
+
 
 
     @Override
