@@ -163,7 +163,7 @@ public class Game implements Runnable{
             selectedPole = pole;
         }
         else {
-                if (pole.isEmpty() || (!selectedPole.isEmpty() && pole.getLast().order > selectedPole.getLast().order )) {
+                if ((pole.isEmpty() && !selectedPole.isEmpty()) || (!selectedPole.isEmpty() && pole.getLast().order > selectedPole.getLast().order )) {
                     pole.insertLast(selectedPole.removeLast());
                     System.out.println("moved");
                     selectedPole = null;
