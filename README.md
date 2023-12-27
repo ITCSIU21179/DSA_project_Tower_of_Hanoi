@@ -1,4 +1,4 @@
-# Tower Of Hanoi
+# Tower of Hanoi
 
 # Table of contents
 1. [Introduction](#Introduction)
