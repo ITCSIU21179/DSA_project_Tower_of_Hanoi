@@ -72,5 +72,10 @@ public class Pole {
     public boolean isEmpty(){
         return nRings==0;
     }
+    public void clearPole(){
+        first = null;
+        last = null;
+        nRings = 0;
+    }
 
 }

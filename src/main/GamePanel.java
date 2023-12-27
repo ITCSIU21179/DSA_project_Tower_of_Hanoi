@@ -42,6 +42,10 @@ public class GamePanel extends JPanel {
         g.drawImage(play_buttons.getSubimage(48,0,48,16),132,585 ,150,70,null);
         g.drawImage(play_buttons.getSubimage(48,0,48,16),432,585 ,150,70,null);
         g.drawImage(play_buttons.getSubimage(48,0,48,16),732,585 ,150,70,null);
+        g.drawImage(play_buttons.getSubimage(48,0,48,16),825,50 ,150,70,null);
+        g.setColor(Color.GRAY);
+        g.setFont(new Font("TimesRoman", Font.BOLD, 30));
+        g.drawString("Solve", 850,100);
         game.render(g);
         
 //        g.setColor(new Color(255,100,150));

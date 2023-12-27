@@ -20,6 +20,7 @@ public class Game implements Runnable{
     private boolean Click1 = false;
     private Pole selectedPole = null;
     private Random rand = new Random();
+    private boolean move_able = true;
 
 
 
@@ -38,12 +39,7 @@ public class Game implements Runnable{
         pole2 = new Pole(486,180);
         pole3 = new Pole(786,180);
 
-        for(int i = 0; i< nRings; i++){
-            Ring ring = new Ring(rand.nextInt(0,256), rand.nextInt(0,256),rand.nextInt(0,256));
-            ring.setOrder(nRings-i);
-            ring.setScale((nRings-i-1)*50);
-            pole1.insertLast(ring);
-        }
+        init_Ring();
 //        ring1 = new Ring(255,100,150);
 //        ring2 = new Ring(255,255,150);
 //        ring3 = new Ring(255,100,25);
@@ -57,9 +53,6 @@ public class Game implements Runnable{
 //        pole3.insertLast(pole1.removeLast());
 //        pole3.insertLast(pole2.removeLast());
 //        pole2.insertLast(pole1.removeLast());
-
-
-
     }
 
     private void startGameLoop(){
@@ -85,7 +78,7 @@ public class Game implements Runnable{
 //        ring3.render(g);
     }
     public void moveRing(Point point){
-        if(point != null) {
+        if(point != null && move_able) {
             if ((point.x >= 153) && (point.x <= 248) && (point.y >= 600) && (point.y <= 649)) {
                 selectPole(1);
 
@@ -98,8 +91,31 @@ public class Game implements Runnable{
                 selectPole(3);
 
             }
+            if ((point.x >= 846) && (point.x <= 940) && (point.y >= 65) && (point.y <= 113)){
+                move_able = false;
+                RecursiveSolve();
+                move_able = true;
+
+            }
         }
 
+    }
+    private void RecursiveSolve(){
+        pole1.clearPole();
+        pole2.clearPole();
+        pole3.clearPole();
+        selectedPole = null;
+        setClick_false();
+        init_Ring();
+
+    }
+    private void init_Ring() {
+        for (int i = 0; i < nRings; i++) {
+            Ring ring = new Ring(rand.nextInt(0, 256), rand.nextInt(0, 256), rand.nextInt(0, 256));
+            ring.setOrder(nRings - i);
+            ring.setScale((nRings - i - 1) * 50);
+            pole1.insertLast(ring);
+        }
     }
 
     public void selectPole(int i){
@@ -109,14 +125,14 @@ public class Game implements Runnable{
                     pole1.setChoseColor();
                     setClick1_true();
                     move(pole1);
-                    System.out.println("select Pole 1");
+                    System.out.println("from Pole 1");
                 }
 
                 else {
 //                        setClick2_true();
                     move(pole1);
                     setClick_false();
-                    System.out.println("select Pole 1");
+                    System.out.println("to Pole 1");
                 }
 
 
@@ -126,14 +142,14 @@ public class Game implements Runnable{
                     pole2.setChoseColor();
                     setClick1_true();
                     move(pole2);
-                    System.out.println("select Pole 2");
+                    System.out.println("from Pole 2");
                 }
 
                 else {
 //                        setClick2_true();
                     move(pole2);
                     setClick_false();
-                    System.out.println("select Pole 2");
+                    System.out.println("to Pole 2");
                 }
 
                 break;
@@ -142,14 +158,14 @@ public class Game implements Runnable{
                     pole3.setChoseColor();
                     setClick1_true();
                     move(pole3);
-                    System.out.println("select Pole 3");
+                    System.out.println("from Pole 3");
                 }
 
                 else {
 //                        setClick2_true();
                     move(pole3);
                     setClick_false();
-                    System.out.println("select Pole 3");
+                    System.out.println("to Pole 3");
                 }
 
                 break;
@@ -157,7 +173,6 @@ public class Game implements Runnable{
     }
     private void setClick_false(){
         Click1 = false;
-//        Click2 = false;
         pole1.setDefaultColor();
         pole2.setDefaultColor();
         pole3.setDefaultColor();
@@ -165,9 +180,7 @@ public class Game implements Runnable{
     private void setClick1_true(){
         this.Click1 = true;
     }
-//    private void setClick2_true(){
-//        this.Click2 = true;
-//    }
+
 
     private void move(Pole pole){
         if (selectedPole == null){
