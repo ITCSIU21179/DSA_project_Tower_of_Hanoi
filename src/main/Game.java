@@ -4,7 +4,7 @@ import object.Ring;
 
 import java.awt.*;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
+
 
 public class Game implements Runnable{
     private static Game toh;
@@ -39,21 +39,8 @@ public class Game implements Runnable{
         pole1 = new Pole(186,180);
         pole2 = new Pole(486,180);
         pole3 = new Pole(786,180);
-
         init_Ring();
-//        ring1 = new Ring(255,100,150);
-//        ring2 = new Ring(255,255,150);
-//        ring3 = new Ring(255,100,25);
-//        ring2.setScale(50);
-//        ring3.setScale(100);
-//        pole1.insertLast(ring3);
-//        pole1.insertLast(ring2);
-//        pole1.insertLast(ring1);
 
-//        pole2.insertLast(pole1.removeLast());
-//        pole3.insertLast(pole1.removeLast());
-//        pole3.insertLast(pole2.removeLast());
-//        pole2.insertLast(pole1.removeLast());
     }
 
     private void startGameLoop(){
@@ -72,11 +59,6 @@ public class Game implements Runnable{
         pole1.render(g);
         pole2.render(g);
         pole3.render(g);
-
-
-//        ring1.render(g);
-//        ring2.render(g);
-//        ring3.render(g);
     }
     public void moveRing(Point point) {
         if(point != null && move_able) {
@@ -110,20 +92,37 @@ public class Game implements Runnable{
         setClick_false();
         init_Ring();
     }
-    private void doTowers(int order,Pole from, Pole inter, Pole to){
-        if(from.getLast().order == order) {
-            to.insertLast(from.removeLast());
-
+    private void doTowers(int order,int a, int b, int c){
+        if(getLast(a) == order) {
+            selectPole(a);
+            selectPole(c);
         }
         else{
-            doTowers(order-1, from, to, inter);
-            to.insertLast(from.removeLast());
-            doTowers(order-1, inter, from, to);
+            doTowers(order-1, a, c, b);
+            selectPole(a);
+            selectPole(c);
+            doTowers(order-1, b, a, c);
+        }
+    }
+    private int getLast(int i){
+        switch(i){
+            case 1:
+                return pole1.getLast().order;
+
+            case 2:
+                return pole2.getLast().order;
+
+            case 3:
+                return pole3.getLast().order;
+
+            default:
+                return 0;
+
         }
     }
     private void RecursiveSolve() {
         reset();
-        doTowers(nRings,pole1,pole2,pole3);
+        doTowers(nRings,1,2,3);
 
     }
     private void init_Ring() {
@@ -142,13 +141,13 @@ public class Game implements Runnable{
                     pole1.setChoseColor();
                     setClick1_true();
                     move(pole1);
-//                    System.out.println("from Pole 1");
+                    System.out.println("from Pole 1");
                 }
 
                 else {
                     move(pole1);
                     setClick_false();
-//                    System.out.println("to Pole 1");
+                    System.out.println("to Pole 1");
                 }
 
 
@@ -158,14 +157,13 @@ public class Game implements Runnable{
                     pole2.setChoseColor();
                     setClick1_true();
                     move(pole2);
-//                    System.out.println("from Pole 2");
+                    System.out.println("from Pole 2");
                 }
 
                 else {
-//                        setClick2_true();
                     move(pole2);
                     setClick_false();
-//                    System.out.println("to Pole 2");
+                    System.out.println("to Pole 2");
                 }
 
                 break;
@@ -174,14 +172,13 @@ public class Game implements Runnable{
                     pole3.setChoseColor();
                     setClick1_true();
                     move(pole3);
-//                    System.out.println("from Pole 3");
+                    System.out.println("from Pole 3");
                 }
 
                 else {
-//                        setClick2_true();
                     move(pole3);
                     setClick_false();
-//                    System.out.println("to Pole 3");
+                    System.out.println("to Pole 3");
                 }
 
                 break;
@@ -205,7 +202,6 @@ public class Game implements Runnable{
         else {
                 if ((pole.isEmpty() && !selectedPole.isEmpty()) || (!selectedPole.isEmpty() && pole.getLast().order > selectedPole.getLast().order )) {
                     pole.insertLast(selectedPole.removeLast());
-                    System.out.println("moved");
                     selectedPole = null;
                 }else selectedPole = null;
 
