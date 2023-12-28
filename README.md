@@ -40,8 +40,9 @@ This is our Tower of Hanoi game project for the Data Structure and Algorithms co
     ```sh
     git status
     ```
-3. Run the project
-4. Enjoy the game
+3. Mark "resources folder" as resources
+4. Run the project
+5. Enjoy the game
 
 ### Task Allocation
 
@@ -49,8 +50,9 @@ This is our Tower of Hanoi game project for the Data Structure and Algorithms co
 
 ### Techniques :
 - Language: [Java](https://www.java.com/en/)
-- Library: 
-
+- JDK: 17.0.6
+- IDE: IntelliJ
+- Git - GitHub
 <br />
 
 
@@ -60,7 +62,7 @@ This is our Tower of Hanoi game project for the Data Structure and Algorithms co
 ### Challenges
 
 ### References
-
+[Kaarin Gaming](https://www.youtube.com/watch?v=6_N8QZ47toY&list=PL4rzdwizLaxYmltJQRjq18a9gsSyEQQ-0)
 <p align="right"><a href="#top">Back to top ↑</a></p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
