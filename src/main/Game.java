@@ -4,6 +4,7 @@ import object.Ring;
 
 import java.awt.*;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class Game implements Runnable{
     private static Game toh;
@@ -77,7 +78,7 @@ public class Game implements Runnable{
 //        ring2.render(g);
 //        ring3.render(g);
     }
-    public void moveRing(Point point){
+    public void moveRing(Point point) {
         if(point != null && move_able) {
             if ((point.x >= 153) && (point.x <= 248) && (point.y >= 600) && (point.y <= 649)) {
                 selectPole(1);
@@ -95,18 +96,34 @@ public class Game implements Runnable{
                 move_able = false;
                 RecursiveSolve();
                 move_able = true;
-
+            }if((point.x >= 720) && (point.x <= 814) && (point.y >= 65) && (point.y <= 113)){
+                reset();
             }
         }
 
     }
-    private void RecursiveSolve(){
+    private void reset(){
         pole1.clearPole();
         pole2.clearPole();
         pole3.clearPole();
         selectedPole = null;
         setClick_false();
         init_Ring();
+    }
+    private void doTowers(int order,Pole from, Pole inter, Pole to){
+        if(from.getLast().order == order) {
+            to.insertLast(from.removeLast());
+
+        }
+        else{
+            doTowers(order-1, from, to, inter);
+            to.insertLast(from.removeLast());
+            doTowers(order-1, inter, from, to);
+        }
+    }
+    private void RecursiveSolve() {
+        reset();
+        doTowers(nRings,pole1,pole2,pole3);
 
     }
     private void init_Ring() {
@@ -125,14 +142,13 @@ public class Game implements Runnable{
                     pole1.setChoseColor();
                     setClick1_true();
                     move(pole1);
-                    System.out.println("from Pole 1");
+//                    System.out.println("from Pole 1");
                 }
 
                 else {
-//                        setClick2_true();
                     move(pole1);
                     setClick_false();
-                    System.out.println("to Pole 1");
+//                    System.out.println("to Pole 1");
                 }
 
 
@@ -142,14 +158,14 @@ public class Game implements Runnable{
                     pole2.setChoseColor();
                     setClick1_true();
                     move(pole2);
-                    System.out.println("from Pole 2");
+//                    System.out.println("from Pole 2");
                 }
 
                 else {
 //                        setClick2_true();
                     move(pole2);
                     setClick_false();
-                    System.out.println("to Pole 2");
+//                    System.out.println("to Pole 2");
                 }
 
                 break;
@@ -158,14 +174,14 @@ public class Game implements Runnable{
                     pole3.setChoseColor();
                     setClick1_true();
                     move(pole3);
-                    System.out.println("from Pole 3");
+//                    System.out.println("from Pole 3");
                 }
 
                 else {
 //                        setClick2_true();
                     move(pole3);
                     setClick_false();
-                    System.out.println("to Pole 3");
+//                    System.out.println("to Pole 3");
                 }
 
                 break;
@@ -220,11 +236,11 @@ public class Game implements Runnable{
             deltaU += (currentTime - previousTime)/timePerUpdate;
             deltaF += (currentTime - previousTime)/timePerFrame;
             previousTime = currentTime;
-//            if(deltaU >=1){
-//                update();
-//                updates++;
-//                deltaU--;
-//            }
+            if(deltaU >=1){
+                update();
+                updates++;
+                deltaU--;
+            }
 
             if (deltaF >= 1) {
                 gamePanel.repaint();

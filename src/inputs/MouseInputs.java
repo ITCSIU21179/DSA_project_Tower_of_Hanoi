@@ -21,6 +21,9 @@ public class MouseInputs implements MouseListener{
         Point a = e.getPoint();
 //        System.out.println(a.x +" " +a.y);
         gamePanel.getGame().moveRing(a);
+
+
+
     }
 
     @Override
