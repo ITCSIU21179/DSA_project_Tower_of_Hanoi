@@ -4,6 +4,8 @@ import object.Ring;
 
 import java.awt.*;
 import java.util.Random;
+import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 
 public class Game implements Runnable{
@@ -22,11 +24,13 @@ public class Game implements Runnable{
     private Pole selectedPole = null;
     private Random rand = new Random();
     private boolean move_able = true;
+    private ArrayList<Integer> solve_tower;
 
 
 
     private Game(){
         nRings = 3;
+        solve_tower = new ArrayList<>();
         initClasses();
         gamePanel = new GamePanel(this);
         gameWindow = new GameWindow(gamePanel);
@@ -60,7 +64,7 @@ public class Game implements Runnable{
         pole2.render(g);
         pole3.render(g);
     }
-    public void moveRing(Point point) {
+    public void moveRing(Point point) throws InterruptedException {
         if(point != null && move_able) {
             if ((point.x >= 153) && (point.x <= 248) && (point.y >= 600) && (point.y <= 649)) {
                 selectPole(1);
@@ -93,14 +97,14 @@ public class Game implements Runnable{
         init_Ring();
     }
     private void doTowers(int order,int a, int b, int c){
-        if(getLast(a) == order) {
-            selectPole(a);
-            selectPole(c);
+        if(order ==1) {
+            solve_tower.add(a);
+            solve_tower.add(c);
         }
         else{
             doTowers(order-1, a, c, b);
-            selectPole(a);
-            selectPole(c);
+            solve_tower.add(a);
+            solve_tower.add(c);
             doTowers(order-1, b, a, c);
         }
     }
@@ -114,15 +118,22 @@ public class Game implements Runnable{
 
             case 3:
                 return pole3.getLast().order;
-
             default:
                 return 0;
 
         }
     }
-    private void RecursiveSolve() {
+    private void RecursiveSolve() throws InterruptedException {
         reset();
         doTowers(nRings,1,2,3);
+
+
+
+        for(Integer e: solve_tower){
+            selectPole(e);
+            TimeUnit.MILLISECONDS.sleep(1000);
+        }
+
 
     }
     private void init_Ring() {

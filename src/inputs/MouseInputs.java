@@ -20,8 +20,11 @@ public class MouseInputs implements MouseListener{
     public void mousePressed(MouseEvent e) {
         Point a = e.getPoint();
 //        System.out.println(a.x +" " +a.y);
-        gamePanel.getGame().moveRing(a);
-
+        try {
+            gamePanel.getGame().moveRing(a);
+        } catch (InterruptedException ex) {
+            throw new RuntimeException(ex);
+        }
 
 
     }
