@@ -13,7 +13,7 @@ public class Game implements Runnable{
     private GameWindow gameWindow;
     private GamePanel gamePanel;
     private Thread gameThread;
-    private final int fps = 120;
+    private final int fps = 500;
     private final int ups = 200;
     private Pole pole1;
     private Pole pole2;
@@ -64,7 +64,7 @@ public class Game implements Runnable{
         pole2.render(g);
         pole3.render(g);
     }
-    public void moveRing(Point point) throws InterruptedException {
+    public void moveRing(Point point) {
         if(point != null && move_able) {
             if ((point.x >= 153) && (point.x <= 248) && (point.y >= 600) && (point.y <= 649)) {
                 selectPole(1);
@@ -95,6 +95,7 @@ public class Game implements Runnable{
         selectedPole = null;
         setClick_false();
         init_Ring();
+        gamePanel.repaint();
     }
     private void doTowers(int order,int a, int b, int c){
         if(order ==1) {
@@ -123,16 +124,22 @@ public class Game implements Runnable{
 
         }
     }
-    private void RecursiveSolve() throws InterruptedException {
+    private void RecursiveSolve() {
         reset();
         doTowers(nRings,1,2,3);
 
 
 
-        for(Integer e: solve_tower){
-            selectPole(e);
-            TimeUnit.MILLISECONDS.sleep(1000);
-        }
+//        for(Integer e: solve_tower) {
+//            selectPole(e);
+//            try {
+//                TimeUnit.MILLISECONDS.sleep(500);
+//            } catch (InterruptedException ex) {
+//                throw new RuntimeException(ex);
+//            }
+//        }
+
+
 
 
     }
