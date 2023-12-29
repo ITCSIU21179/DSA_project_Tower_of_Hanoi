@@ -34,11 +34,12 @@ public class GamePanel extends JPanel {
         return game;
     }
 
+    public void updateGame(){
 
+    }
     public void paintComponent(Graphics g){
         super.paintComponents(g);
         g.drawImage(background,0,0,1000,700,null);
-
         g.drawImage(play_buttons.getSubimage(48,0,48,16),132,585 ,150,70,null);
         g.drawImage(play_buttons.getSubimage(48,0,48,16),432,585 ,150,70,null);
         g.drawImage(play_buttons.getSubimage(48,0,48,16),732,585 ,150,70,null);

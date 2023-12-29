@@ -13,7 +13,7 @@ public class Game implements Runnable{
     private GameWindow gameWindow;
     private GamePanel gamePanel;
     private Thread gameThread;
-    private final int fps = 500;
+    private final int fps = 200;
     private final int ups = 200;
     private Pole pole1;
     private Pole pole2;
@@ -35,6 +35,7 @@ public class Game implements Runnable{
         gamePanel = new GamePanel(this);
         gameWindow = new GameWindow(gamePanel);
         gamePanel.requestFocus();
+        doTowers(nRings,1,2,3);
         startGameLoop();
 
     }
@@ -57,14 +58,14 @@ public class Game implements Runnable{
             toh = new Game();
     }
     public void update(){
-
+        gamePanel.updateGame();
     }
     public void render(Graphics g){
         pole1.render(g);
         pole2.render(g);
         pole3.render(g);
     }
-    public void moveRing(Point point) {
+    public void moveRing(Point point) throws InterruptedException {
         if(point != null && move_able) {
             if ((point.x >= 153) && (point.x <= 248) && (point.y >= 600) && (point.y <= 649)) {
                 selectPole(1);
@@ -95,7 +96,14 @@ public class Game implements Runnable{
         selectedPole = null;
         setClick_false();
         init_Ring();
-        gamePanel.repaint();
+    }
+    private void init_Ring() {
+        for (int i = 0; i < nRings; i++) {
+            Ring ring = new Ring(rand.nextInt(0, 256), rand.nextInt(0, 256), rand.nextInt(0, 256));
+            ring.setOrder(nRings - i);
+            ring.setScale((nRings - i - 1) * 50);
+            pole1.insertLast(ring);
+        }
     }
     private void doTowers(int order,int a, int b, int c){
         if(order ==1) {
@@ -124,32 +132,13 @@ public class Game implements Runnable{
 
         }
     }
-    private void RecursiveSolve() {
+    private void RecursiveSolve() throws InterruptedException {
         reset();
-        doTowers(nRings,1,2,3);
 
-
-
-//        for(Integer e: solve_tower) {
-//            selectPole(e);
-//            try {
-//                TimeUnit.MILLISECONDS.sleep(500);
-//            } catch (InterruptedException ex) {
-//                throw new RuntimeException(ex);
-//            }
-//        }
-
-
-
-
-    }
-    private void init_Ring() {
-        for (int i = 0; i < nRings; i++) {
-            Ring ring = new Ring(rand.nextInt(0, 256), rand.nextInt(0, 256), rand.nextInt(0, 256));
-            ring.setOrder(nRings - i);
-            ring.setScale((nRings - i - 1) * 50);
-            pole1.insertLast(ring);
+        for(Integer e: solve_tower) {
+            selectPole(e);
         }
+
     }
 
     public void selectPole(int i){
