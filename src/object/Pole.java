@@ -1,3 +1,12 @@
+/*
+ Name: 13
+ Member names & IU code:
+ Trần Thanh Hiếu _ ITCSIU21179
+ Trần Vũ Khánh Hưng _ ITCSIU21182
+ Ngô Í Khang _ ITCSIU21192
+ Hồ Anh Dũng _ ITCSIU21172
+ Purpose: Properties of each pole (act as LinkStack of doubly linked list)
+*/
 package object;
 
 import java.awt.*;

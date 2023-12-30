@@ -1,3 +1,12 @@
+/*
+ Name: 13
+ Member names & IU code:
+ Trần Thanh Hiếu _ ITCSIU21179
+ Trần Vũ Khánh Hưng _ ITCSIU21182
+ Ngô Í Khang _ ITCSIU21192
+ Hồ Anh Dũng _ ITCSIU21172
+ Purpose: Construct and check every logic occurs (contain Singleton design pattern)
+*/
 package main;
 import object.Pole;
 import object.Ring;
@@ -40,6 +49,11 @@ public class Game implements Runnable{
         startGameLoop();
 
     }
+    //Singleton design pattern:
+    public static void executeGame(){
+        if (toh == null)
+            toh = new Game();
+    }
 
     private void initClasses() {
         pole1 = new Pole(186,180);
@@ -55,10 +69,6 @@ public class Game implements Runnable{
         gameThread.start();
     }
 
-    public static void executeGame(){
-        if (toh == null)
-            toh = new Game();
-    }
     public void update(){
         pole1.updateRing();
         pole2.updateRing();
@@ -112,6 +122,10 @@ public class Game implements Runnable{
                 move_able = false;
                 reset();
                 last_solve = System.currentTimeMillis();
+            }
+            if((point.x >= 721) && (point.x <= 816) && (point.y >= 65) && (point.y <= 113)){
+                reset();
+
             }
             if((point.x >= 22) && (point.x <= 114) && (point.y >= 65) && (point.y <= 113)){
                 nRings = 3;
