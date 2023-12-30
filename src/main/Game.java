@@ -224,7 +224,7 @@ public class Game implements Runnable{
         }
 
     }
-
+    //special thanks to l.n.v.Phuc for this idea!//
     private void doTowers(int order,int a, int b, int c){
         if(order ==1) {
             solve_tower.add(a);
