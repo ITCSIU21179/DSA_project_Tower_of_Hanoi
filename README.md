@@ -50,7 +50,7 @@ This is our Tower of Hanoi game project for the Data Structure and Algorithms co
 
 ### Techniques :
 - Language: [Java](https://www.java.com/en/)
-- JDK: 17.0.6 or higher
+- JDK: 17.0.6
 - IDE: IntelliJ
 - Git - GitHub
 <br />
