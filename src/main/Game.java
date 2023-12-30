@@ -58,14 +58,16 @@ public class Game implements Runnable{
             toh = new Game();
     }
     public void update(){
-        gamePanel.updateGame();
+        pole1.updateRing();
+        pole2.updateRing();
+        pole3.updateRing();
     }
     public void render(Graphics g){
         pole1.render(g);
         pole2.render(g);
         pole3.render(g);
     }
-    public void moveRing(Point point) throws InterruptedException {
+    public void moveRing(Point point) {
         if(point != null && move_able) {
             if ((point.x >= 153) && (point.x <= 248) && (point.y >= 600) && (point.y <= 649)) {
                 selectPole(1);
@@ -132,7 +134,7 @@ public class Game implements Runnable{
 
         }
     }
-    private void RecursiveSolve() throws InterruptedException {
+    private void RecursiveSolve() {
         reset();
 
         for(Integer e: solve_tower) {

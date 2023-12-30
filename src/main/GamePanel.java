@@ -34,9 +34,6 @@ public class GamePanel extends JPanel {
         return game;
     }
 
-    public void updateGame(){
-
-    }
     public void paintComponent(Graphics g){
         super.paintComponents(g);
         g.drawImage(background,0,0,1000,700,null);
