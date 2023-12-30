@@ -29,7 +29,6 @@ public class Pole {
         }
         last = newRing;
         nRings++;
-        updateRing();
 
     }
     public Ring removeLast(){
