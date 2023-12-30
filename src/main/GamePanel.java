@@ -34,27 +34,43 @@ public class GamePanel extends JPanel {
         return game;
     }
 
+
     public void paintComponent(Graphics g){
         super.paintComponents(g);
         g.drawImage(background,0,0,1000,700,null);
-        g.drawImage(play_buttons.getSubimage(48,0,48,16),132,585 ,150,70,null);
-        g.drawImage(play_buttons.getSubimage(48,0,48,16),432,585 ,150,70,null);
-        g.drawImage(play_buttons.getSubimage(48,0,48,16),732,585 ,150,70,null);
-        g.drawImage(play_buttons.getSubimage(48,0,48,16),825,50 ,150,70,null);
-        g.drawImage(play_buttons.getSubimage(48,0,48,16),700,50 ,150,70,null);
-        g.setColor(Color.GRAY);
-        g.setFont(new Font("TimesRoman", Font.BOLD, 30));
-        g.drawString("Solve", 850,100);
-        g.setFont(new Font("TimesRoman", Font.BOLD, 30));
-        g.drawString("Reset", 725,100);
-        game.render(g);
-        
-//        g.setColor(new Color(255,100,150));
-//        g.fillRect((300-15/2)-50-25, 600, ring1.width +100, ring1.height);
-//        g.setColor(new Color(255,255,150));
-//        g.fillRect((300-15/2)-25-25, 600- ring1.height, ring1.width +50, ring1.height);
-//        g.setColor(new Color(255,100,25));
-//        g.fillRect((300-15/2)-25, 600-2* ring1.height, ring1.width, ring1.height);
+        if(!game.win) {
+            g.drawImage(play_buttons.getSubimage(48, 0, 48, 16), 132, 585, 150, 70, null);
+            g.drawImage(play_buttons.getSubimage(48, 0, 48, 16), 432, 585, 150, 70, null);
+            g.drawImage(play_buttons.getSubimage(48, 0, 48, 16), 732, 585, 150, 70, null);
+            g.drawImage(play_buttons.getSubimage(48, 0, 48, 16), 825, 50, 150, 70, null);
+            g.drawImage(play_buttons.getSubimage(48, 0, 48, 16), 700, 50, 150, 70, null);
+            g.drawImage(play_buttons.getSubimage(48, 0, 48, 16), 0, 50, 150, 70, null);
+            g.drawImage(play_buttons.getSubimage(48, 0, 48, 16), 160, 50, 150, 70, null);
+            g.drawImage(play_buttons.getSubimage(48, 0, 48, 16), 320, 50, 150, 70, null);
+            g.setColor(new Color(113, 113, 113));
+            g.setFont(new Font("TimesRoman", Font.BOLD, 30));
+            g.drawString("Solve", 850, 100);
+            g.drawString("Reset", 725, 100);
+            g.setColor(new Color(0));
+            g.setFont(new Font("TimesRoman", Font.BOLD, 25));
+            g.drawString("3 Rings", 25, 100);
+            g.drawString("4 Rings", 185, 100);
+            g.drawString("5 Rings", 345, 100);
+
+            game.render(g);
+
+        }
+        else{
+            g.setColor(Color.green);
+            g.setFont(new Font("TimesRoman", Font.BOLD, 50));
+            g.drawString("You won", 400, 350);
+            g.drawImage(play_buttons.getSubimage(48, 0, 48, 16), 432, 400, 150, 70, null);
+            g.setColor(new Color(113, 113, 113));
+            g.setFont(new Font("TimesRoman", Font.BOLD, 30));
+            g.drawString("Retry", 460, 450);
+
+        }
+
 
     }
 

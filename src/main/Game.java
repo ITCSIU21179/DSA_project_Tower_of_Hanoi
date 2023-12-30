@@ -12,7 +12,7 @@ public class Game implements Runnable{
     private GameWindow gameWindow;
     private GamePanel gamePanel;
     private Thread gameThread;
-    private final int fps = 200;
+    private final int fps = 120;
     private final int ups = 200;
     private Pole pole1;
     private Pole pole2;
@@ -26,6 +26,7 @@ public class Game implements Runnable{
     private ArrayList<Integer> solve_tower;
     private static double last_solve;
     private static int step = 0;
+    public boolean win = false;
 
 
 
@@ -36,7 +37,6 @@ public class Game implements Runnable{
         gamePanel = new GamePanel(this);
         gameWindow = new GameWindow(gamePanel);
         gamePanel.requestFocus();
-        doTowers(nRings,1,2,3);
         startGameLoop();
 
     }
@@ -46,6 +46,7 @@ public class Game implements Runnable{
         pole2 = new Pole(486,180);
         pole3 = new Pole(786,180);
         init_Ring();
+        doTowers(nRings,1,2,3);
 
     }
 
@@ -62,6 +63,7 @@ public class Game implements Runnable{
         pole1.updateRing();
         pole2.updateRing();
         pole3.updateRing();
+        setWin();
         if(!move_able) {
             RecursiveSolve();
         }
@@ -72,13 +74,20 @@ public class Game implements Runnable{
         pole2.render(g);
         pole3.render(g);
     }
+    private void setWin() {
+        double now = System.currentTimeMillis();
+        if(!pole3.isEmpty() && pole3.nRings == nRings && pole3.getLast().order ==1 && now - last_solve >= 500)
+            win = true;
+    }
     private void reset(){
         pole1.clearPole();
         pole2.clearPole();
         pole3.clearPole();
         selectedPole = null;
+        solve_tower.clear();
         setClick_false();
         init_Ring();
+        doTowers(nRings,1,2,3);
     }
     private void init_Ring() {
         for (int i = 0; i < nRings; i++) {
@@ -92,42 +101,41 @@ public class Game implements Runnable{
         if(point != null && move_able) {
             if ((point.x >= 153) && (point.x <= 248) && (point.y >= 600) && (point.y <= 649)) {
                 selectPole(1);
-
             }
             if ((point.x >= 153 + 300) && (point.x <= 248 + 300) && (point.y >= 600) && (point.y <= 649)) {
                 selectPole(2);
-
             }
             if ((point.x >= 153 + 600) && (point.x <= 248 + 600) && (point.y >= 600) && (point.y <= 649)) {
                 selectPole(3);
-
             }
             if ((point.x >= 846) && (point.x <= 940) && (point.y >= 65) && (point.y <= 113)){
                 move_able = false;
                 reset();
                 last_solve = System.currentTimeMillis();
-            }if((point.x >= 720) && (point.x <= 814) && (point.y >= 65) && (point.y <= 113)){
+            }
+            if((point.x >= 22) && (point.x <= 114) && (point.y >= 65) && (point.y <= 113)){
+                nRings = 3;
                 reset();
+
+            }
+            if((point.x >= 182) && (point.x <= 274) && (point.y >= 65) && (point.y <= 113)){
+                nRings = 4;
+                reset();
+
+            }
+            if((point.x >= 342) && (point.x <= 432) && (point.y >= 65) && (point.y <= 113)){
+                nRings = 5;
+                reset();
+
+            }
+            if(win &&(point.x >= 452) && (point.x <= 549) && (point.y >= 414) && (point.y <= 464)) {
+                win = false;
+                reset();
+
             }
         }
-
     }
 
-//    private int getLast(int i){
-//        switch(i){
-//            case 1:
-//                return pole1.getLast().order;
-//
-//            case 2:
-//                return pole2.getLast().order;
-//
-//            case 3:
-//                return pole3.getLast().order;
-//            default:
-//                return 0;
-//
-//        }
-//    }
     public void selectPole(int i){
         switch(i){
             case 1:
@@ -218,7 +226,7 @@ public class Game implements Runnable{
     private void RecursiveSolve() {
 
         double now = System.currentTimeMillis();
-        if(now - last_solve >= 1000){
+        if(now - last_solve >= 500){
             selectPole(solve_tower.get(step));
             step++;
             last_solve = now;
@@ -228,6 +236,12 @@ public class Game implements Runnable{
             move_able = true;
         }
 
+    }
+    public Pole getPole3(){
+        return pole3;
+    }
+    public int getnRings(){
+        return nRings;
     }
 
 
@@ -263,16 +277,6 @@ public class Game implements Runnable{
                 deltaF--;
 
             }
-//            ring1.displayProperties();
-//            ring2.displayProperties();
-//            ring3.displayProperties();
-
-//            if(System.currentTimeMillis() - last >= 1000){
-//                last = System.currentTimeMillis();
-//                System.out.println("Fps = " + frames + "| Updates =" +updates);
-//                frames =0;
-//                updates =0;
-//            }
         }
     }
 }
