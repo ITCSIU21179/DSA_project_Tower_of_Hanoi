@@ -1,6 +1,6 @@
-<div>
+
 # Tower of Hanoi
-</div>
+
 # Table of contents
 1. [Introduction](#Introduction)
 2. [Game](#Game)
